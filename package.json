@@ -4,10 +4,10 @@
   "description": "Gerenciador de podcasts - API Node.js com TypeScript e HTTP Module",
   "main": "index.js",
   "scripts": {
-    "dev": "tsx --env-file=.env src/server.ts",
-    "dev:watch": "tsx watch --env-file=.env src/server.ts",
-    "build": "tsdown src",
-    "start": "node dist/src/server.js",
+    "start:dev": "tsx --env-file=.env src/server.ts",
+    "start:watch": "tsx watch --env-file=.env src/server.ts",
+    "dist": "tsdown src",
+    "start:dist": "npm run dist && node --env-file=.env dist/server.js",
     "typecheck": "tsc --noEmit",
     "lint": "biome check .",
     "format": "biome format --write ."
