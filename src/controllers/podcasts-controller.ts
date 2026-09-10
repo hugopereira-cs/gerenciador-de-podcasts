@@ -16,10 +16,7 @@ export const getFilterEpisodes = async (
   req: IncomingMessage,
   res: ServerResponse
 ) => {
-  // Separa a url onde há a sequência de "?p=", e armazena o segundo elemento na variável, se não existir req.url, armazena uma string vazia
-  const queryString = req.url?.split("?p=")[1] ?? "";
-
-  const content = await serviceFilterEpisodes(queryString);
+  const content = await serviceFilterEpisodes(req.url);
 
   res.writeHead(200, { 'Content-type': 'application/json' });
   res.end(JSON.stringify(content));
