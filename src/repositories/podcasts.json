@@ -16,5 +16,11 @@
     "episode": "Hugo - Flow #340",
     "videoId": "000",
     "categories": ["esporte", "corrida"]
+  },
+  {
+    "podcastName": "venus",
+    "episode": "Xuxa - Flow #340",
+    "videoId": "001",
+    "categories": ["humor"]
   }
 ]
