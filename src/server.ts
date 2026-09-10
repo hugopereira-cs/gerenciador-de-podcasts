@@ -4,22 +4,23 @@ import {
   getListEpisodes,
 } from './controllers/podcasts-controller';
 import { Routes } from './routes/routes';
+import { HttpMethod } from './utils/http-methods';
 
 // Criando um servidor HTTP
 const server = http.createServer(
-  async (req: http.IncomingMessage, res: http.ServerResponse) => {
+  async (request: http.IncomingMessage, response: http.ServerResponse) => {
 
     // QueryString
-    const [baseUrl, queryString] = req.url?.split("?") ?? ["", ""];
+    const [baseUrl, queryString] = request.url?.split("?") ?? ["", ""];
 
     // Listar podcasts
-    if (req.method === 'GET' && baseUrl === Routes.LIST) {
-      await getListEpisodes(req, res);
+    if (request.method === HttpMethod.GET && baseUrl === Routes.LIST) {
+      await getListEpisodes(request, response);
     }
 
     // Filtrar por nome
-    if (req.method === 'GET' && baseUrl === Routes.EPISODE) {
-      await getFilterEpisodes(req, res);
+    if (request.method === HttpMethod.GET && baseUrl === Routes.EPISODE) {
+      await getFilterEpisodes(request, response);
     }
   }
 );
