@@ -1,8 +1,8 @@
-import fs from 'fs'; // Pacote do Node.js para manipulação de arquivos de sistema
-import path from 'path'; // Pacote do Node.js para manipulação de caminhos de arquivos
-import type { PodcastModel } from '../models/podcast-model';
+import fs from "fs"; // Pacote do Node.js para manipulação de arquivos de sistema
+import path from "path"; // Pacote do Node.js para manipulação de caminhos de arquivos
+import type { PodcastModel } from "../models/podcast-model";
 
-const pathData = path.join(__dirname, '../repositories/podcasts.json'); // dirname é uma variável global do Node.js que representa o diretório atual do arquivo em execução
+const pathData = path.join(__dirname, "../repositories/podcasts.json"); // dirname é uma variável global do Node.js que representa o diretório atual do arquivo em execução
 
 export const repositoryPodcast = async (
   podcastName?: string

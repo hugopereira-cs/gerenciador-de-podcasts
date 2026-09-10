@@ -1,8 +1,8 @@
-import type { IncomingMessage, ServerResponse } from 'http';
-import { serviceListEpisodes } from '../services/list-episodes-service';
-import { serviceFilterEpisodes } from '../services/filter-episodes-service';
-import { StatusCode } from '../utils/status-code';
-import { ContentType } from '../utils/content-type';
+import type { IncomingMessage, ServerResponse } from "http";
+import { serviceListEpisodes } from "../services/list-episodes-service";
+import { serviceFilterEpisodes } from "../services/filter-episodes-service";
+import { StatusCode } from "../utils/status-code";
+import { ContentType } from "../utils/content-type";
 
 export const getListEpisodes = async (
   req: IncomingMessage,
@@ -10,7 +10,7 @@ export const getListEpisodes = async (
 ) => {
   const content = await serviceListEpisodes();
 
-  res.writeHead(StatusCode.OK, { 'Content-type': ContentType.JSON }); // Escreve os cabeçalhos da resposta HTTP antes de enviar o corpo da resposta "res.end()"
+  res.writeHead(StatusCode.OK, { "Content-type": ContentType.JSON }); // Escreve os cabeçalhos da resposta HTTP antes de enviar o corpo da resposta "res.end()"
   res.end(JSON.stringify(content));
 };
 
@@ -20,6 +20,6 @@ export const getFilterEpisodes = async (
 ) => {
   const content = await serviceFilterEpisodes(req.url);
 
-  res.writeHead(StatusCode.OK, { 'Content-type': ContentType.JSON });
+  res.writeHead(StatusCode.OK, { "Content-type": ContentType.JSON });
   res.end(JSON.stringify(content));
 };
