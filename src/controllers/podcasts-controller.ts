@@ -1,26 +1,40 @@
 import type { IncomingMessage, ServerResponse } from "http";
 import { serviceListEpisodes } from "../services/list-episodes-service";
 import { serviceFilterEpisodes } from "../services/filter-episodes-service";
-import { StatusCode } from "../utils/status-code";
 import { ContentType } from "../utils/content-type";
-import type { FilterPodcastModel } from "../models/filter-podcast-model";
+import type { PodcastTransferModel } from "../models/podcast-transfer-model";
+
+// Define o tipo de conteúdo padrão para as respostas HTTP
+const DEFAULT_CONTENT = { "Content-type": ContentType.JSON }
 
 export const getListEpisodes = async (
   req: IncomingMessage,
   res: ServerResponse
 ) => {
-  const content = await serviceListEpisodes();
+  const content: PodcastTransferModel = await serviceListEpisodes();
 
-  res.writeHead(StatusCode.OK, { "Content-type": ContentType.JSON }); // Escreve os cabeçalhos da resposta HTTP antes de enviar o corpo da resposta "res.end()"
-  res.end(JSON.stringify(content));
+  // Escreve os cabeçalhos da resposta HTTP
+  res.writeHead(content.statusCode, DEFAULT_CONTENT);
+
+  //Escreve no corpo da mensagem
+  res.write(JSON.stringify(content.body));
+
+  // Indica que não há mais nada para ser escrito
+  res.end();
 };
 
 export const getFilterEpisodes = async (
   req: IncomingMessage,
   res: ServerResponse
 ) => {
-  const content: FilterPodcastModel = await serviceFilterEpisodes(req.url);
+  const content: PodcastTransferModel = await serviceFilterEpisodes(req.url);
 
-  res.writeHead(content.statusCode, { "Content-type": ContentType.JSON });
-  res.end(JSON.stringify(content.body));
+  // Escreve os cabeçalhos da resposta HTTP
+  res.writeHead(content.statusCode, DEFAULT_CONTENT);
+
+  //Escreve no corpo da mensagem
+  res.write(JSON.stringify(content.body));
+
+  // Indica que não há mais nada para ser escrito
+  res.end();
 };

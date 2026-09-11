@@ -1,4 +1,4 @@
-import * as http from "http";
+import type * as http from "http";
 import {
   getFilterEpisodes,
   getListEpisodes,
@@ -11,7 +11,7 @@ export const app = async (
   response: http.ServerResponse
 ) => {
   // QueryString
-  const [baseUrl, queryString] = request.url?.split("?") ?? ["", ""];
+  const baseUrl = request.url?.split("?")[0];
 
   // Listar podcasts
   if (request.method === HttpMethod.GET && baseUrl === Routes.LIST) {
