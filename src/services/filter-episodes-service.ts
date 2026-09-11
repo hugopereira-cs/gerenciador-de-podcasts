@@ -1,13 +1,25 @@
-import { IncomingMessage } from "http";
+import type { FilterPodcastModel } from "../models/filter-podcast-model";
 import { repositoryPodcast } from "../repositories/podcasts-repository";
+import { StatusCode } from "../utils/status-code";
 
 export const serviceFilterEpisodes = async (
   podcastName: string | undefined
-) => {
-  // Separa a url onde há a sequência de "?p=", e armazena o segundo elemento na variável, se não existir req.url, armazena uma string vazia
-  const queryString = podcastName?.split("?p=")[1] ?? "";
+): Promise<FilterPodcastModel> => {
+  // Define a interface de retorno
+  const responseFormat: FilterPodcastModel = {
+    statusCode: 0,
+    body: [],
+  };
 
+  // Busca os dados
+  const queryString = podcastName?.split("?p=")[1] ?? "";
   const data = await repositoryPodcast(queryString);
 
-  return data;
+  // Verifica se tem conteúdo
+  responseFormat.statusCode =
+    data.length !== 0 ? StatusCode.OK : StatusCode.NO_CONTENT;
+
+  responseFormat.body = data;
+
+  return responseFormat;
 };
